@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"math"
 	"os"
 )
 
@@ -67,7 +68,13 @@ func readFile() {
 				break
 			}
 			//fmt.Println(m)
-			_, err = fmt.Fprintf(w, "%v\n", m)
+			//fmt.Println(m.Latrad)
+			Latdeg := m.Latrad * 180 / math.Pi
+			//fmt.Println(Latdeg)
+			Londeg := m.Lonrad * 180 / math.Pi
+			//fmt.Println(Londeg)
+			_, err = fmt.Fprint(w, m.Time, ",", Latdeg, ",", Londeg, ",", m.Alt, ",", m.Roll, ",", m.Pitch, ",", m.Heading, "\n")
+			//fmt.Println(m.Time, ",", m.Latrad, ",", m.Lonrad, ",", m.Alt, ",", m.Roll, ",", m.Pitch, ",", m.Heading)
 		}
 	}
 	w.Flush()
